@@ -1,0 +1,36 @@
+name: Build INFINITY FPS
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "sdk/mods/infinity-fps/**"
+      - "sdk/**"
+      - ".github/workflows/build-infinity-fps.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Bearite SDK
+        run: |
+          if [ ! -f sdk/build-mod.sh ]; then
+            echo "::error::Bearite SDK is missing. Add the SDK files under sdk/ so sdk/build-mod.sh exists."
+            exit 1
+          fi
+
+      - name: Build mod
+        run: |
+          export ANDROID_NDK_HOME="$ANDROID_NDK_LATEST_HOME"
+          cd sdk
+          bash build-mod.sh mods/infinity-fps ../dist
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: infinity-fps
+          path: dist/infinity-fps.zip
+          if-no-files-found: error

@@ -1,0 +1,18 @@
+{
+  "id": "infinity-fps",
+  "name": "INFINITY FPS",
+  "version": "1.0",
+  "author": "я",
+  "description": "Настройка целевого FPS и отдельная подмена отображаемого значения FPS.",
+  "libs": ["libs/arm64-v8a/libinfinityfps.so"],
+  "settings": [
+    { "id": "real_on", "type": "bool", "name": "Настоящий FPS", "description": "Применять заданный целевой FPS", "default": true },
+    { "id": "fps_value", "type": "string", "name": "Значение FPS", "description": "Целевое значение FPS; фактическая частота ограничена устройством и игрой", "default": "60" },
+    { "id": "fake_on", "type": "bool", "name": "Показывать другой FPS", "description": "Меняет только число в FPS-счётчике", "default": false },
+    { "id": "fake_value", "type": "string", "name": "Отображаемый FPS", "description": "Число для отображения в счётчике", "default": "99999" }
+  ],
+  "hud": [
+    { "label": "FPS", "setting": "real_on", "action": "toggle", "pos": "left" },
+    { "label": "Фейк", "setting": "fake_on", "action": "toggle", "pos": "left" }
+  ]
+}
